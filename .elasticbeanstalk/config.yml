@@ -1,0 +1,12 @@
+branch-defaults:
+  default:
+    environment: battles1-env
+  master:
+    environment: groupresponsePhysic-env
+global:
+  application_name: groupresponse-physics
+  default_ec2_keyname: null
+  default_platform: Node.js
+  default_region: us-east-1
+  profile: eb-cli
+  sc: git
