@@ -167,6 +167,13 @@
 
     });
 
+    socket.on('update locations',function(data){
+        for(i=0;i<players.length;i++){
+            sprites[i].x = data[i].x;
+            sprites[i].y = data[i].y;
+        }
+    });
+
     socket.on('update',function(data){
         if (data === []){
             console.log("data is [] so now sprites is []")
@@ -241,7 +248,14 @@
 
         if (cursors.up.isDown)
         {
-            socket.emit('up',socket.id);
+            for (i = 0;i<players.length;i++){
+                if(players[i].socketid == socket.id){
+                    players[i].x = sprites[i].body.x;
+                    players[i].y = sprites[i].body.y;
+                    socket.emit('up',players);
+                }
+            }
+
         }
         else if (cursors.down.isDown)
         {

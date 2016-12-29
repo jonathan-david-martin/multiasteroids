@@ -66,11 +66,17 @@ io.on('connection', function(socket) {
 
     socket.on('up', function(msg){
         for(i=0;i<players.length;i++){
-            if(players[i].socketid == msg){
-                players[i].speed = 50;
-            }
+            //if(players[i].socketid == msg.socketid){
+                players[i].angle = msg[i].angle;
+                players[i].speed = 100;
+                players[i].x = msg[i].x;
+                players[i].y = msg[i].y;
+                
+            //}
         }
+        io.emit('update locations',players);
         io.emit('update',players);
+
     });
 
     socket.on('down', function(msg){
