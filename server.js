@@ -67,7 +67,7 @@ io.on('connection', function(socket) {
     socket.on('up', function(msg){
         for(i=0;i<players.length;i++){
             if(players[i].socketid == msg){
-                players[i].speed = 200;
+                players[i].speed = 50;
             }
         }
         io.emit('update',players);

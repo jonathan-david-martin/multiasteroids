@@ -32,6 +32,7 @@
 
     }
 
+
     function preload() {
         console.log("starting preload");
         game.load.crossOrigin = 'anonymous';
@@ -180,6 +181,10 @@
                 console.log('setting angle from players:' + players[i].angle)
                 console.log(sprites[i].body);
                 sprites[i].angle = players[i].angle;
+
+                if(players[i].x == -999){
+                    sprites[i].x = -999;
+                }
                 //sprites[i].body.rotation = 90;
                 //console.log(sprites[i].body.rotation);
                 //sprites[i].body.x = players[i].x;
@@ -208,8 +213,9 @@
                 //players[i].angle = sprites[i].body.angle;
 
                 if (players[i].speed > 0) {
-                    players[i].speed -= 1;
+                    players[i].speed -= 5;
                     game.physics.arcade.velocityFromAngle(players[i].angle, players[i].speed, sprites[i].body.velocity);
+                    //screenWrap(sprites[i]);
                     socket.emit('phaserupdate', players);
                 }
 
@@ -220,6 +226,8 @@
             }
 
         }
+
+
 
 
         if (cursors.left.isDown)
@@ -252,6 +260,7 @@
         if(game.input.pointer1.isDown && game.input.pointer1.y>700){
             socket.emit('down',socket.id);
         }
+
 
 
     }
