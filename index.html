@@ -213,7 +213,7 @@
                 //players[i].angle = sprites[i].body.angle;
 
                 if (players[i].speed > 0) {
-                    players[i].speed -= 5;
+                    players[i].speed -= 1;
                     game.physics.arcade.velocityFromAngle(players[i].angle, players[i].speed, sprites[i].body.velocity);
                     //screenWrap(sprites[i]);
                     socket.emit('phaserupdate', players);
