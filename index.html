@@ -226,6 +226,12 @@
                     socket.emit('phaserupdate', players);
                 }
 
+                if (players[i].speed <= 0) {
+                    players[i].x = sprites[i].x;
+                    players[i].y = sprites[i].y;
+                    socket.emit('no movement',players);
+                }
+
 
                 //console.log(sprites[i].body.x);
                 //console.log(sprites[i].body.y);
@@ -250,8 +256,8 @@
         {
             for (i = 0;i<players.length;i++){
                 if(players[i].socketid == socket.id){
-                    players[i].x = sprites[i].body.x;
-                    players[i].y = sprites[i].body.y;
+                    players[i].x = sprites[i].x;
+                    players[i].y = sprites[i].y;
                     socket.emit('up',players);
                 }
             }

@@ -79,6 +79,20 @@ io.on('connection', function(socket) {
 
     });
 
+    socket.on('no movement', function(msg){
+        for(i=0;i<players.length;i++){
+            //if(players[i].socketid == msg.socketid){
+            players[i].angle = msg[i].angle;
+            players[i].x = msg[i].x;
+            players[i].y = msg[i].y;
+
+            //}
+        }
+        io.emit('update locations',players);
+
+
+    });
+
     socket.on('down', function(msg){
         for(i=0;i<players.length;i++){
             if(players[i].socketid == msg){
@@ -100,6 +114,7 @@ io.on('connection', function(socket) {
         
         }
         io.emit('update',players);
+
     });
 
 
