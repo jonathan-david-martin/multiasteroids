@@ -48,13 +48,13 @@
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
         var style = { font: "170px Arial", fill: "#ff0000" };
-        var label_A = game.add.text(150, 70, 'A', style);
+        //var label_A = game.add.text(150, 70, 'A', style);
         var style = { font: "170px Arial", fill: "#00ff00" };
-        var label_B = game.add.text(550, 70, 'B', style);
+        //var label_B = game.add.text(550, 70, 'B', style);
         var style = { font: "170px Arial", fill: "#0000ff" };
-        var label_C = game.add.text(150, 460, 'C', style);
+        //var label_C = game.add.text(150, 460, 'C', style);
         var style = { font: "170px Arial", fill: "#ffff00"};
-        var label_D = game.add.text(550, 460, 'D', style);
+        //var label_D = game.add.text(550, 460, 'D', style);
 
         var style = { font: "32px Arial", fill: "#ffffff"};
         var leftMsg = game.add.text(20, 610, 'PRESS HERE TO TURN LEFT', style);
@@ -90,8 +90,8 @@
 
                 sprite = game.add.sprite(players[i].x, players[i].y, 'phaser');
 
-                sprite.pivot.x = 15;
-                sprite.pivot.y = 15;
+                sprite.pivot.x = 40;
+                sprite.pivot.y = 40;
 
                 /**
                 var style = { font: "20px Arial", fill: "#ffffff" };
@@ -112,7 +112,7 @@
 
                 sprite.angle = players[i].angle;
                 //sprite.body.(players[i].thrust);
-                game.physics.arcade.velocityFromAngle(sprite.angle, players[i].speed,sprite.body.velocity);
+                game.physics.arcade.velocityFromAngle(sprite.angle - 90, players[i].speed,sprite.body.velocity);
                 //sprite.body.setZeroDamping();
 
                 sprite.body.damping = 0.5;
@@ -146,7 +146,7 @@
 
             //sprite.body.thrust(players[players.length - 1].thrust);
             sprite.angle = players[players.length - 1].angle;
-            game.physics.arcade.velocityFromAngle(sprite.angle, players[players.length - 1].speed,sprite.body.velocity);
+            game.physics.arcade.velocityFromAngle(sprite.angle - 90, players[players.length - 1].speed,sprite.body.velocity);
             //sprite.body.setZeroDamping();
 
             sprite.body.damping = 0.5;
@@ -192,7 +192,7 @@
                 //sprites[i].body.thrust(players[i].thrust);
                 console.log('player ' + i + ' speed is' + players[i].speed);
                 console.log('player ' + i + ' velocity is' + sprites[i].body.velocity);
-                game.physics.arcade.velocityFromAngle(players[i].angle, players[i].speed, sprites[i].body.velocity);
+                game.physics.arcade.velocityFromAngle(players[i].angle - 90, players[i].speed, sprites[i].body.velocity);
 
 
             //console.log(sprites[i].body.x);
@@ -214,7 +214,7 @@
 
                 if (players[i].speed > 0) {
                     players[i].speed -= 1;
-                    game.physics.arcade.velocityFromAngle(players[i].angle, players[i].speed, sprites[i].body.velocity);
+                    game.physics.arcade.velocityFromAngle(players[i].angle - 90, players[i].speed, sprites[i].body.velocity);
                     //screenWrap(sprites[i]);
                     socket.emit('phaserupdate', players);
                 }
