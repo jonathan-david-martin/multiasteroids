@@ -18,11 +18,14 @@ app.get('/', function(req, res){
 
 var players = [];
 
-var player = function(x,y,angle,speed,socketid){
+var player = function(x,y,angle,speed,velocityx,velocityy,socketid){
     this.x = x;
     this.y = y;
     this.angle = angle;
     this.speed = speed;
+    this.velocityx = velocityx;
+    this.velocityy = velocityy;
+    
     this.socketid = socketid;
     
 }
@@ -39,7 +42,7 @@ io.on('connection', function(socket) {
     
     socket.on('phaser create function initiated', function(msg){
         
-        newplayer = new player(400,100,0,0,socket.id);
+        newplayer = new player(400,100,0,0,0,0,socket.id);
         players.push(newplayer);
         io.emit('server knows phaser create initiated', players);
         //console.log(players);
@@ -69,7 +72,7 @@ io.on('connection', function(socket) {
         for(i=0;i<players.length;i++){
             if(players[i].socketid == msg){
                 //players[i].angle = msg[i].angle;
-                players[i].speed = 200;
+                players[i].speed = 800;
                 //players[i].x = msg[i].x;
                 //players[i].y = msg[i].y;
               //console.log('server up' + msg[i].socketid);
@@ -117,6 +120,26 @@ io.on('connection', function(socket) {
         
         }
         io.emit('update',players);
+
+    });
+
+    socket.on('velocity update', function(data){
+
+        for(i=0;i<players.length;i++){
+            players[i].angle = data[i].angle;
+            players[i].x = data[i].x;
+            players[i].y = data[i].y;
+            //console.log('phaser update:' + i + ' ' + data[i].speed)
+            players[i].velocityx = data[i].velocityx;
+            players[i].velocityx = data[i].velocityy;
+            
+            
+
+
+
+        }
+
+        io.emit('velocity update',players);
 
     });
 

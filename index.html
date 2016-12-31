@@ -21,6 +21,8 @@
     var game = new Phaser.Game(800, 800, Phaser.AUTO, '', { preload: preload, create: create, update: update})
     var socket = io();
 
+    var updateCounter = 0;
+
     var players = [];
     var sprites = [];
     var cursors;
@@ -196,6 +198,21 @@
 
     });
 
+    socket.on('velocity update',function(data){
+        for(i=0;i<players.length;i++){
+            if (updateCounter > 5) {
+                sprites[i].x = data[i].x;
+                sprites[i].y = data[i].y;
+                sprites[i].angle = data[i].angle;
+                updateCounter = 0;
+            }
+            updateCounter++;
+            sprites[i].body.velocity.x = data[i].velocityx;
+            sprites[i].body.velocity.y = data[i].velocityy;
+        }
+        console.log('velocity update');
+    });
+
     /**
     socket.on('update locations',function(data){
         for(i=0;i<players.length;i++){
@@ -233,7 +250,7 @@
                 //console.log('player ' + i + ' speed is' + players[i].speed);
                 //console.log('player ' + i + ' velocity is' + sprites[i].body.velocity);
 
-                if(players[i].speed == 200) {
+                if(players[i].speed == 800) {
                     game.physics.arcade.velocityFromAngle(players[i].angle - 90, players[i].speed, sprites[i].body.velocity);
                     //if (players[i].speed == 50) {
                     //    players[i].speed = 49
@@ -260,12 +277,21 @@
                 screenWrap(sprites[i]);
 
                 if (players[i].speed > 0) {
-                    players[i].speed -= 1;
+                    players[i].speed -= 10;
                     //game.physics.arcade.velocityFromAngle(players[i].angle - 90, players[i].speed, sprites[i].body.velocity);
                     //screenWrap(sprites[i]);
                     socket.emit('phaserupdate',players);
                     //socket.emit('phaserupdate', players);
                 }
+
+                players[i].velocityx = sprites[i].body.velocity.x;
+                players[i].velocityy = sprites[i].body.velocity.y;
+                players[i].x = sprites[i].x;
+                players[i].y = sprites[i].y;
+                players[i].angle = sprites[i].angle;
+
+
+                socket.emit('velocity update',players);
 
 
                 /**
