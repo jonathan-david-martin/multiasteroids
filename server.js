@@ -65,16 +65,17 @@ io.on('connection', function(socket) {
     });
 
     socket.on('up', function(msg){
+
         for(i=0;i<players.length;i++){
-            //if(players[i].socketid == msg.socketid){
-                players[i].angle = msg[i].angle;
-                players[i].speed = 100;
-                players[i].x = msg[i].x;
-                players[i].y = msg[i].y;
-                
-            //}
+            if(players[i].socketid == msg){
+                //players[i].angle = msg[i].angle;
+                players[i].speed = 200;
+                //players[i].x = msg[i].x;
+                //players[i].y = msg[i].y;
+              //console.log('server up' + msg[i].socketid);
+            }
         }
-        io.emit('update locations',players);
+        //io.emit('update locations',players);
         io.emit('update',players);
 
     });
@@ -88,7 +89,7 @@ io.on('connection', function(socket) {
 
             //}
         }
-        io.emit('update locations',players);
+        //io.emit('update locations',players);
 
 
     });
@@ -103,11 +104,13 @@ io.on('connection', function(socket) {
     });
 
 
+    
     socket.on('phaserupdate', function(data){
     for(i=0;i<players.length;i++){
-                players[i].angle = data[i].angle;
-                players[i].x = data[i].x;
-                players[i].y = data[i].y;
+                //players[i].angle = data[i].angle;
+                //players[i].x = data[i].x;
+                //players[i].y = data[i].y;
+                console.log('phaser update:' + i + ' ' + data[i].speed)
                 players[i].speed = data[i].speed;
                 
         

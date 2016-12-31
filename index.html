@@ -32,6 +32,28 @@
 
     }
 
+    function screenWrap (sprite) {
+
+        if (sprite.x < 0)
+        {
+            sprite.x = game.width;
+        }
+        else if (sprite.x > game.width)
+        {
+            sprite.x = 0;
+        }
+
+        if (sprite.y < 0)
+        {
+            sprite.y = game.height;
+        }
+        else if (sprite.y > game.height)
+        {
+            sprite.y = 0;
+        }
+
+    }
+
 
     function preload() {
         console.log("starting preload");
@@ -115,7 +137,9 @@
                 game.physics.arcade.velocityFromAngle(sprite.angle - 90, players[i].speed,sprite.body.velocity);
                 //sprite.body.setZeroDamping();
 
-                sprite.body.damping = 0.5;
+                //sprite.body.damping = 0.5;
+                sprite.body.drag.set(100);
+                sprite.body.angularDrag = 500;
                 //sprite.body.angulardamping = 0.05;
 
                 //sprite.body.velocity.x = 0;
@@ -134,6 +158,9 @@
             sprite = game.add.sprite(players[players.length - 1].x, players[players.length - 1].y, 'phaser');
             sprite.socketid = players[players.length - 1].socketid;
 
+            sprite.pivot.x = 40;
+            sprite.pivot.y = 40;
+
             /**
             var style = { font: "20px Arial", fill: "#ffffff" };
             var str = players[i].socketid;
@@ -149,7 +176,9 @@
             game.physics.arcade.velocityFromAngle(sprite.angle - 90, players[players.length - 1].speed,sprite.body.velocity);
             //sprite.body.setZeroDamping();
 
-            sprite.body.damping = 0.5;
+            //sprite.body.damping = 0.5;
+            sprite.body.drag.set(100);
+            sprite.body.angularDrag = 500;
             //sprite.body.angulardamping = 0.05;
 
             //sprite.body.velocity.x = 0;
@@ -167,12 +196,16 @@
 
     });
 
+    /**
     socket.on('update locations',function(data){
         for(i=0;i<players.length;i++){
-            sprites[i].x = data[i].x;
-            sprites[i].y = data[i].y;
+            //sprites[i].x = data[i].x;
+            //sprites[i].y = data[i].y;
+            sprites[i].speed = data[i].speed;
         }
+        console.log('update locations');
     });
+     **/
 
     socket.on('update',function(data){
         if (data === []){
@@ -199,8 +232,13 @@
                 //sprites[i].body.thrust(players[i].thrust);
                 console.log('player ' + i + ' speed is' + players[i].speed);
                 console.log('player ' + i + ' velocity is' + sprites[i].body.velocity);
-                game.physics.arcade.velocityFromAngle(players[i].angle - 90, players[i].speed, sprites[i].body.velocity);
 
+                if(players[i].speed == 200) {
+                    game.physics.arcade.velocityFromAngle(players[i].angle - 90, players[i].speed, sprites[i].body.velocity);
+                    //if (players[i].speed == 50) {
+                    //    players[i].speed = 49
+                    //}
+                }
 
             //console.log(sprites[i].body.x);
                 //console.log(sprites[i].body.y);
@@ -219,18 +257,25 @@
                 //players[i].y = sprites[i].body.y;
                 //players[i].angle = sprites[i].body.angle;
 
+                screenWrap(sprites[i]);
+
                 if (players[i].speed > 0) {
                     players[i].speed -= 1;
-                    game.physics.arcade.velocityFromAngle(players[i].angle - 90, players[i].speed, sprites[i].body.velocity);
+                    //game.physics.arcade.velocityFromAngle(players[i].angle - 90, players[i].speed, sprites[i].body.velocity);
                     //screenWrap(sprites[i]);
-                    socket.emit('phaserupdate', players);
+                    socket.emit('phaserupdate',players);
+                    //socket.emit('phaserupdate', players);
                 }
 
-                if (players[i].speed <= 0) {
+
+                /**
+                if (sprites[i].body.velocity.x <= 0 && sprites[i].body.velocity.y <= 0) {
                     players[i].x = sprites[i].x;
                     players[i].y = sprites[i].y;
+                    players[i].angle = sprites[i].angle;
                     socket.emit('no movement',players);
                 }
+                **/
 
 
                 //console.log(sprites[i].body.x);
@@ -254,13 +299,13 @@
 
         if (cursors.up.isDown)
         {
-            for (i = 0;i<players.length;i++){
-                if(players[i].socketid == socket.id){
-                    players[i].x = sprites[i].x;
-                    players[i].y = sprites[i].y;
-                    socket.emit('up',players);
-                }
-            }
+            //for (i = 0;i<players.length;i++){
+                //if(players[i].socketid == socket.id){
+                    //players[i].x = sprites[i].x;
+                    //players[i].y = sprites[i].y;
+                    socket.emit('up',socket.id);
+                //}
+            //}
 
         }
         else if (cursors.down.isDown)
