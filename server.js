@@ -131,7 +131,7 @@ io.on('connection', function(socket) {
             players[i].y = data[i].y;
             //console.log('phaser update:' + i + ' ' + data[i].speed)
             players[i].velocityx = data[i].velocityx;
-            players[i].velocityx = data[i].velocityy;
+            players[i].velocityy = data[i].velocityy;
             
             
 
