@@ -34,15 +34,15 @@ var idLookup = function(id,playersArray){
 
 
 io.on('connection', function(socket) {
-    console.log('connection');
-    console.log('here is the socket id:' + socket.id);
+    //console.log('connection');
+    //console.log('here is the socket id:' + socket.id);
     
     socket.on('phaser create function initiated', function(msg){
         
         newplayer = new player(400,100,0,0,socket.id);
         players.push(newplayer);
         io.emit('server knows phaser create initiated', players);
-        console.log(players);
+        //console.log(players);
         
     });
 
@@ -110,7 +110,7 @@ io.on('connection', function(socket) {
                 //players[i].angle = data[i].angle;
                 //players[i].x = data[i].x;
                 //players[i].y = data[i].y;
-                console.log('phaser update:' + i + ' ' + data[i].speed)
+                //console.log('phaser update:' + i + ' ' + data[i].speed)
                 players[i].speed = data[i].speed;
                 
         
@@ -136,7 +136,7 @@ io.on('connection', function(socket) {
 
         }
         if(disconnectedUsers == players.length){
-            console.log("players.length:" + players.length + " disconnected users:" + disconnectedUsers)
+            //console.log("players.length:" + players.length + " disconnected users:" + disconnectedUsers)
             players = [];
         }
         io.emit('update',players);

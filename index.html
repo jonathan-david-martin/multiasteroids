@@ -60,13 +60,13 @@
         game.load.crossOrigin = 'anonymous';
         game.load.image('phaser', './assets/ship.png');
 
-        console.log("ending preload");
+        //console.log("ending preload");
 
     }
 
     function create() {
 
-        console.log("create");
+        //console.log("create");
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
         var style = { font: "170px Arial", fill: "#ff0000" };
@@ -104,7 +104,7 @@
         //document.getElementById("p1").innerHTML = "My id:" + mystr.substring(0,4);
 
         players = data;
-        console.log("server knows phaser create initiated");
+        //console.log("server knows phaser create initiated");
 
         if (sprites.length == 0)
         {
@@ -189,7 +189,7 @@
                 sprite.tint = 0xff0000;
             }
             sprites.push(sprite);
-            console.log(sprite.socketid);
+            //console.log(sprite.socketid);
         }
 
 
@@ -213,13 +213,13 @@
             sprites = [];
         }
         else {
-            console.log("data is not empty");
+            //console.log("data is not empty");
             players = data;
         }
 
         for(i=0;i<players.length;i++){
-                console.log('setting angle from players:' + players[i].angle)
-                console.log(sprites[i].body);
+                //console.log('setting angle from players:' + players[i].angle)
+                //console.log(sprites[i].body);
                 sprites[i].angle = players[i].angle;
 
                 if(players[i].x == -999){
@@ -230,8 +230,8 @@
                 //sprites[i].body.x = players[i].x;
                 //sprites[i].body.y = players[i].y;
                 //sprites[i].body.thrust(players[i].thrust);
-                console.log('player ' + i + ' speed is' + players[i].speed);
-                console.log('player ' + i + ' velocity is' + sprites[i].body.velocity);
+                //console.log('player ' + i + ' speed is' + players[i].speed);
+                //console.log('player ' + i + ' velocity is' + sprites[i].body.velocity);
 
                 if(players[i].speed == 200) {
                     game.physics.arcade.velocityFromAngle(players[i].angle - 90, players[i].speed, sprites[i].body.velocity);
