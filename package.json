@@ -1,0 +1,26 @@
+{
+  "name": "multiasteroids",
+  "version": "1.0.0",
+  "description": "our game",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.14.0",
+    "socket.io": "^1.7.2",
+    "socketio": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wintolearn/multiasteroids.git"
+  },
+  "author": "Jon and Rob",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wintolearn/multiasteroids/issues"
+  },
+  "homepage": "https://github.com/wintolearn/multiasteroids#readme"
+}
