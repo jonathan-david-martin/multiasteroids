@@ -140,8 +140,8 @@
         //sprite.body.setZeroDamping();
 
         //sprite.body.damping = 0.5;
-        sprite.body.drag.set(100);
-        sprite.body.angularDrag = 500;
+        sprite.body.drag.set(200);
+        sprite.body.angularDrag = 600;
         //sprite.body.angulardamping = 0.05;
 
         //sprite.body.velocity.x = 0;
@@ -179,8 +179,8 @@
       //sprite.body.setZeroDamping();
 
       //sprite.body.damping = 0.5;
-      sprite.body.drag.set(100);
-      sprite.body.angularDrag = 500;
+      sprite.body.drag.set(200);
+      sprite.body.angularDrag = 600;
       //sprite.body.angulardamping = 0.05;
 
       //sprite.body.velocity.x = 0;
@@ -254,7 +254,7 @@
       //console.log('player ' + i + ' speed is' + players[i].speed);
       //console.log('player ' + i + ' velocity is' + sprites[i].body.velocity);
 
-      if(players[i].speed == 400) {
+      if(players[i].speed == 200) {
         game.physics.arcade.velocityFromAngle(players[i].angle - 90, players[i].speed, sprites[i].body.velocity);
         //if (players[i].speed == 50) {
         //    players[i].speed = 49

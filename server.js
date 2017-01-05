@@ -72,7 +72,7 @@ io.on('connection', function(socket) {
         for(i=0;i<players.length;i++){
             if(players[i].socketid == msg){
                 //players[i].angle = msg[i].angle;
-                players[i].speed = 400;
+                players[i].speed = 200;
                 //players[i].x = msg[i].x;
                 //players[i].y = msg[i].y;
               //console.log('server up' + msg[i].socketid);
