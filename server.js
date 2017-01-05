@@ -108,7 +108,7 @@ io.on('connection', function(socket) {
 
 
     
-    socket.on('phaserupdate', function(data){
+   /* socket.on('phaserupdate', function(data){
     for(i=0;i<players.length;i++){
                 //players[i].angle = data[i].angle;
                 //players[i].x = data[i].x;
@@ -121,17 +121,19 @@ io.on('connection', function(socket) {
         }
         io.emit('update',players);
 
-    });
+    }); */
 
     socket.on('velocity update', function(data){
 
         for(i=0;i<players.length;i++){
-            players[i].angle = data[i].angle;
-            players[i].x = data[i].x;
-            players[i].y = data[i].y;
+          if(players[i].socketid == data[0].socketid) {
+            players[i].angle     = data[i].angle;
+            players[i].x         = data[i].x;
+            players[i].y         = data[i].y;
             //console.log('phaser update:' + i + ' ' + data[i].speed)
             players[i].velocityx = data[i].velocityx;
             players[i].velocityy = data[i].velocityy;
+          }
             
             
 
