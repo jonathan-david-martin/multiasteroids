@@ -199,18 +199,20 @@
   });
 
   socket.on('velocity update',function(data){
-    for(i=0;i<players.length;i++){
+    for(i=0;i<players.length;i++) {
       //if (updateCounter > 5) {
+      if (sprites[i].socketid != socket.id) {
         sprites[i].x = data[i].x;
         sprites[i].y = data[i].y;
         sprites[i].angle = data[i].angle;
         updateCounter = 0;
-      //}
-      updateCounter++;
-      sprites[i].body.velocity.x = data[i].velocityx;
-      sprites[i].body.velocity.y = data[i].velocityy;
+        //}
+        updateCounter++;
+        sprites[i].body.velocity.x = data[i].velocityx;
+        sprites[i].body.velocity.y = data[i].velocityy;
+      }
     }
-    console.log('velocity update');
+    //console.log('velocity update');
   });
 
   /**
