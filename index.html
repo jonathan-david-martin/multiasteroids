@@ -246,8 +246,10 @@
       }
       //sprites[i].body.rotation = 90;
       //console.log(sprites[i].body.rotation);
-      sprites[i].body.x = players[i].x;
-      sprites[i].body.y = players[i].y;
+      if(players[i].x != sprites[i].x || players[i].y != sprites[i].y) {
+        sprites[i].body.x = players[i].x;
+        sprites[i].body.y = players[i].y;
+      }
       //sprites[i].body.thrust(players[i].thrust);
       //console.log('player ' + i + ' speed is' + players[i].speed);
       //console.log('player ' + i + ' velocity is' + sprites[i].body.velocity);
