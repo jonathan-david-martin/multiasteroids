@@ -6,7 +6,6 @@
     <script src="./js/phaser.min.js" type="text/javascript"></script>
     <script src="./js/jquery-3.1.1.min.js" type="text/javascript" crossorigin="anonymous"></script>
     <script src="/socket.io/socket.io.js"></script>
-
 </head>
 <body>
 
@@ -146,7 +145,6 @@
         sprites[i].body.y = players[i].y;
       }
 
-
       if(players[i].speed == 200) {
         game.physics.arcade.velocityFromAngle(players[i].angle - 90, players[i].speed, sprites[i].body.velocity);
 
@@ -154,6 +152,17 @@
 
     }
   });
+
+  //check if sprite is out of sync with corresponding player in array within a tolerance of 5
+  function syncCheck(sprite, playerElement){
+    if(playerElement.x + 5 > sprite.x - 5 && playerElement.x - 5 > sprite.x + 5 && playerElement.y + 5 > sprites.y - 5 && playerElement.y - 5 > sprite.y + 5) {
+      return true;
+    }
+    else{
+      return false;
+    }
+
+  }
 
   //phaser update
   function update() {
@@ -172,7 +181,8 @@
             players[i].velocityx = sprites[i].body.velocity.x;
             players[i].velocityy = sprites[i].body.velocity.y;
             players[i].angle = sprites[i].angle;
-            if(players[i].x != sprites[i].x || players[i].y != sprites[i].y) {
+            //if(players[i].x != sprites[i].x || players[i].y != sprites[i].y) {
+            if(!syncCheck(sprites[i],players[i])){
               players[i].x = sprites[i].x;
               players[i].y = sprites[i].y;
               socket.emit('velocity update', players);
@@ -217,7 +227,7 @@
     }
 
   }
-  
+
 </script>
 
 </body>
