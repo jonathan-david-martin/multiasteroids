@@ -126,8 +126,8 @@ io.on('connection', function(socket) {
     socket.on('velocity update', function(data){
 
         for(i=0;i<players.length;i++){
-          //if(players[i].socketid == data[i].socketid) {
-              console.log(i + ' ' + players[i].socketid + ' ' + data[0].socketid)
+          if(players[i].socketid == data[i].socketid) {
+              //console.log(i + ' ' + players[i].socketid + ' ' + data[0].socketid)
             players[i].angle     = data[i].angle;
             players[i].x         = data[i].x;
             players[i].y         = data[i].y;
@@ -135,7 +135,7 @@ io.on('connection', function(socket) {
             players[i].velocityx = data[i].velocityx;
             players[i].velocityy = data[i].velocityy;
 
-          //}
+          }
             
             
 
