@@ -114,8 +114,8 @@
 
         sprite = game.add.sprite(players[i].x, players[i].y, 'phaser');
 
-        sprite.pivot.x = 40;
-        sprite.pivot.y = 40;
+        //sprite.pivot.x = 40;
+        //sprite.pivot.y = 40;
 
         /**
          var style = { font: "20px Arial", fill: "#ffffff" };
@@ -160,8 +160,8 @@
       sprite = game.add.sprite(players[players.length - 1].x, players[players.length - 1].y, 'phaser');
       sprite.socketid = players[players.length - 1].socketid;
 
-      sprite.pivot.x = 40;
-      sprite.pivot.y = 40;
+      //sprite.pivot.x = 40;
+      //sprite.pivot.y = 40;
 
       /**
        var style = { font: "20px Arial", fill: "#ffffff" };
@@ -200,12 +200,12 @@
 
   socket.on('velocity update',function(data){
     for(i=0;i<players.length;i++){
-      if (updateCounter > 5) {
+      //if (updateCounter > 5) {
         sprites[i].x = data[i].x;
         sprites[i].y = data[i].y;
         sprites[i].angle = data[i].angle;
         updateCounter = 0;
-      }
+      //}
       updateCounter++;
       sprites[i].body.velocity.x = data[i].velocityx;
       sprites[i].body.velocity.y = data[i].velocityy;
@@ -244,13 +244,13 @@
       }
       //sprites[i].body.rotation = 90;
       //console.log(sprites[i].body.rotation);
-      //sprites[i].body.x = players[i].x;
-      //sprites[i].body.y = players[i].y;
+      sprites[i].body.x = players[i].x;
+      sprites[i].body.y = players[i].y;
       //sprites[i].body.thrust(players[i].thrust);
       //console.log('player ' + i + ' speed is' + players[i].speed);
       //console.log('player ' + i + ' velocity is' + sprites[i].body.velocity);
 
-      if(players[i].speed == 800) {
+      if(players[i].speed == 600) {
         game.physics.arcade.velocityFromAngle(players[i].angle - 90, players[i].speed, sprites[i].body.velocity);
         //if (players[i].speed == 50) {
         //    players[i].speed = 49
@@ -284,24 +284,20 @@
           //socket.emit('phaserupdate', players);
         }
 
-        if (players[i].socketid != socket.id) {
-          players[i].velocityx = sprites[i].body.velocity.x;
-          players[i].velocityy = sprites[i].body.velocity.y;
-          players[i].x = sprites[i].x;
-          players[i].y = sprites[i].y;
-          players[i].angle = sprites[i].angle;
-        }
-        else{
-          //could add a tolerance in here to see how much it has moved
-          if(players[i].x != sprites[i].x && players[i].y != sprites[i].y){
+          if (players[i].socketid == socket.id) {
             players[i].velocityx = sprites[i].body.velocity.x;
             players[i].velocityy = sprites[i].body.velocity.y;
-            players[i].x = sprites[i].x;
-            players[i].y = sprites[i].y;
             players[i].angle = sprites[i].angle;
+            if(players[i].x != sprites[i].x || players[i].y != sprites[i].y) {
+              players[i].x = sprites[i].x;
+              players[i].y = sprites[i].y;
+              socket.emit('velocity update', players);
+            }
 
-            socket.emit('velocity update',[ players[i]]);
           }
+
+
+
         }
 
 
@@ -323,7 +319,7 @@
 
       }
 
-    }
+
 
 
 
