@@ -273,7 +273,7 @@
     if(game.input.pointer1.isDown && game.input.pointer1.y>600){
       socket.emit('down',socket.id);
     }
-    if(game.input.pointer1.isDown && game.input.pointer1.y < 500 && game.input.pointer1.y > 300 && game.input.pointer1.x < 500 && game.input.pointer1.x > 300){
+    if(game.input.pointer1.isDown && game.input.pointer1.x < 500 && game.input.pointer1.x > 300 && game.input.pointer1.y < 500 && game.input.pointer1.y > 300){
       socket.emit('down',socket.id);
     }
 
