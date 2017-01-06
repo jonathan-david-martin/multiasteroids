@@ -155,7 +155,7 @@
 
   //check if sprite is out of sync with corresponding player in array within a tolerance of 5
   function syncCheck(sprite, playerElement, tolerance){
-    if(playerElement.x + tolerance > sprite.x - tolerance && playerElement.x - tolerance > sprite.x + tolerance && playerElement.y + tolerance > sprites.y - tolerance && playerElement.y - tolerance > sprite.y + tolerance) {
+    if(sprite.x + tolerance > playerElement.x - tolerance && sprite.x - tolerance < playerElement.x + tolerance && sprite.y + tolerance > playerElement.y - tolerance && sprite.y - tolerance < playerElement.y + tolerance) {
       return true;
     }
     else{
@@ -182,7 +182,8 @@
             players[i].velocityy = sprites[i].body.velocity.y;
             players[i].angle = sprites[i].angle;
             //if(players[i].x != sprites[i].x || players[i].y != sprites[i].y) {
-            if(!syncCheck(sprites[i],players[i],1)){
+            if(syncCheck(sprites[i],players[i],1) == false){
+              console.log('out of sync');
               players[i].x = sprites[i].x;
               players[i].y = sprites[i].y;
               socket.emit('velocity update', players);
