@@ -144,6 +144,13 @@
         laserSprite.body.angularDrag = 300;
 
         laserSprites.push(laserSprite);
+        setTimeout(deleteLaser, 1000);
+
+        function deleteLaser(){
+          if(laserSprites.length > 0) {
+            laserSprites.pop();
+          }
+        }
 
       }
     }
