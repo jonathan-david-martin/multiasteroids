@@ -62,6 +62,7 @@
     var rightMsg = game.add.text(770, 160, 'PRESS HERE TO TURN RIGHT', style);
     rightMsg.angle = 90;
     var upMsg = game.add.text(190, 10, 'PRESS HERE TO THRUST', style);
+    var fireMsg = game.add.text(230, 710, 'PRESS HERE TO FIRE', style);
 
     var style = { font: "16px Arial", fill: "#ffffff"};
     var keysMsg = game.add.text(240, 50, '*or use the arrow keys on your computer', style);
@@ -271,10 +272,10 @@
       socket.emit('up',socket.id);
     }
     if(game.input.pointer1.isDown && game.input.pointer1.y>600){
-      socket.emit('down',socket.id);
+      socket.emit('spacebar',socket.id);
     }
     if(game.input.pointer1.isDown && game.input.pointer1.x < 500 && game.input.pointer1.x > 300 && game.input.pointer1.y < 500 && game.input.pointer1.y > 300){
-      socket.emit('down',socket.id);
+      socket.emit('spacebar',socket.id);
     }
 
   }
